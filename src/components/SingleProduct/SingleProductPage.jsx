@@ -18,6 +18,7 @@ const product = {
 };
 
 const SingleProductPage = () => {
+  //선택한 이미지 기억 (선택한 이미지 인덱스 번호를 저장)
   const [selectedImage, setSelectedImage] = useState(0);
   return (
     <section className="align_center single_product">
@@ -34,6 +35,7 @@ const SingleProductPage = () => {
           ))}
         </div>
 
+        {/* 큰 이미지는 왼쪽의 4개의 이미지중 선택한 인덱스 번호으 이미지 표시 */}
         <img
           src={product.images[selectedImage]}
           alt={product.title}
