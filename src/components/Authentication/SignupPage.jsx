@@ -8,7 +8,6 @@ import "./SignupPage.css";
 const SignupPage = () => {
   //업로드 파일(이미지파일)
   const [profilePic, setProfilePic] = useState(null);
-  console.log(profilePic);
   const {
     register,
     handleSubmit,
@@ -18,7 +17,7 @@ const SignupPage = () => {
 
   const submitData = (formData) => console.log(formData);
 
-  //console.log(profilePic);
+  console.log(profilePic);
 
   return (
     <section className="align_center form_page">
