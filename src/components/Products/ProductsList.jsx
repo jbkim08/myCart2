@@ -1,20 +1,10 @@
 import "./ProductsList.css";
 import ProductCard from "./ProductCard";
-import { useEffect, useState } from "react";
-import apiClient from "../../utils/api-client";
+import useData from "../../Hook/useData";
 
 const ProductsList = () => {
-  //제품들 데이터
-  const [products, setProducts] = useState([]);
-  //에러메세지
-  const [error, setError] = useState("");
-  //처음 시작시 제품데이터를 가져옴
-  useEffect(() => {
-    apiClient
-      .get("/products") //Get으로 요청 기본주소+/products
-      .then((res) => setProducts(res.data.products)) //결과를 업데이트
-      .catch((err) => setError(err)); //에러발생시 업데이트
-  }, []);
+  //서버에서 가져오는 데이터에는 제품데이터 및 페이지등 다른 데이터도 있음.
+  const { data, error } = useData("products");
 
   return (
     <section className="products_list_section">
@@ -31,18 +21,19 @@ const ProductsList = () => {
 
       <div className="products_list">
         {error && <em className="form_error">{error}</em>}
-        {products.map((product) => (
-          <ProductCard
-            key={product._id}
-            id={product._id}
-            title={product.title}
-            image={product.images[0]}
-            price={product.price}
-            rating={product.rating}
-            ratingCounts={product.reviews.counts}
-            stock={product.stock}
-          />
-        ))}
+        {data.products &&
+          data.products.map((product) => (
+            <ProductCard
+              key={product._id}
+              id={product._id}
+              title={product.title}
+              image={product.images[0]}
+              price={product.price}
+              rating={product.rating}
+              ratingCounts={product.reviews.counts}
+              stock={product.stock}
+            />
+          ))}
       </div>
     </section>
   );
