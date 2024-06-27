@@ -1,15 +1,20 @@
+import { useEffect, useState } from "react";
 import "./App.css";
-import LoginPage from "./components/Authentication/LoginPage";
-import SignupPage from "./components/Authentication/SignupPage";
-import CartPage from "./components/Cart/CartPage";
-import HomePage from "./components/Home/HomePage";
-import MyOrderPage from "./components/MyOrder/MyOrderPage";
 import Navbar from "./components/Navbar/Navbar";
-import ProductsPage from "./components/Products/ProductsPage";
 import Routing from "./components/Routing/Routing";
-import SingleProductPage from "./components/SingleProduct/SingleProductPage";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
+  const [user, setUser] = useState(null);
+  //시작시 jwt 토큰을 가져옴
+  useEffect(() => {
+    try {
+      const jwt = localStorage.getItem("token");
+      const jwtUser = jwtDecode(jwt);
+      setUser(jwtUser);
+    } catch (err) {}
+  }, []);
+
   return (
     <div className="app">
       <Navbar />
