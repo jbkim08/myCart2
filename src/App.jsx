@@ -11,7 +11,12 @@ function App() {
     try {
       const jwt = localStorage.getItem("token");
       const jwtUser = jwtDecode(jwt);
-      setUser(jwtUser);
+      if (Date.now() >= jwtUser.exp * 1000) {
+        localStorage.removeItem("token");
+        window.location.reload(); //재시작(리프레쉬)
+      } else {
+        setUser(jwtUser); //유효기간 내일때 유저정보 저장
+      }
     } catch (err) {}
   }, []);
 
