@@ -20,6 +20,7 @@ const SignupPage = () => {
   const submitData = async (formData) => {
     try {
       await signup(formData, profilePic);
+      window.location = "/"; //가입되어 홈페이지로 이동
     } catch (err) {
       setFormError(err.response.data.message);
     }

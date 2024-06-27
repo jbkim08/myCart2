@@ -14,6 +14,7 @@ const LoginPage = () => {
   const submitData = async (formData) => {
     try {
       await login(formData);
+      window.location = "/"; //로그인 되어 홈페이지로 이동
     } catch (err) {
       setFormError(err.response.data.message);
     }
