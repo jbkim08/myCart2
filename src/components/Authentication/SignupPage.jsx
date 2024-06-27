@@ -4,10 +4,12 @@ import { useState } from "react";
 import user from "../../assets/user.webp";
 
 import "./SignupPage.css";
+import { signup } from "../../services/userServices";
 
 const SignupPage = () => {
   //업로드 파일(이미지파일)
   const [profilePic, setProfilePic] = useState(null);
+  const [formError, setFormError] = useState("");
   const {
     register,
     handleSubmit,
@@ -15,7 +17,13 @@ const SignupPage = () => {
     watch,
   } = useForm();
 
-  const submitData = (formData) => console.log(formData);
+  const submitData = async (formData) => {
+    try {
+      await signup(formData, profilePic);
+    } catch (err) {
+      setFormError(err.response.data.message);
+    }
+  };
 
   console.log(profilePic);
 
@@ -139,6 +147,8 @@ const SignupPage = () => {
             )}
           </div>
         </div>
+
+        {formError && <em className="form_error">{formError}</em>}
 
         <button className="search_button form_submit" type="submit">
           Submit
