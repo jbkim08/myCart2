@@ -3,6 +3,7 @@ import "./SingleProductPage.css";
 import QuantityInput from "./QuantityInput";
 import { useParams } from "react-router-dom";
 import useData from "../../Hook/useData";
+import Loader from "../Common/Loader";
 
 const SingleProductPage = () => {
   //선택한 이미지 기억 (선택한 이미지 인덱스 번호를 저장)
@@ -15,6 +16,7 @@ const SingleProductPage = () => {
   return (
     <section className="align_center single_product">
       {error && <em className="form_error">{error}</em>}
+      {isLoading && <Loader />}
       {product._id && (
         <>
           <div className="align_center">
