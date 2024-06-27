@@ -2,8 +2,12 @@ import "./ProductsList.css";
 import ProductCard from "./ProductCard";
 import useData from "../../Hook/useData";
 import ProductCardSkeleton from "./ProductCardSkeleton";
+import { useSearchParams } from "react-router-dom";
 
 const ProductsList = () => {
+  const [search, setSearch] = useSearchParams(); //?뒤의 쿼리스트링 가져옴
+  const category = search.get("category"); //쿼리스트링에서 category=값을 가져옴
+  console.log("넘어오는 카테고리: " + category);
   //서버에서 가져오는 데이터에는 제품데이터 및 페이지등 다른 데이터도 있음.
   const { data, error, isLoading } = useData("products");
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
