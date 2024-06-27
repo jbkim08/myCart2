@@ -7,14 +7,21 @@ import { useSearchParams } from "react-router-dom";
 const ProductsList = () => {
   const [search, setSearch] = useSearchParams(); //?뒤의 쿼리스트링 가져옴
   const category = search.get("category"); //쿼리스트링에서 category=값을 가져옴
+  const page = search.get("page");
   //console.log("넘어오는 카테고리: " + category);
   //서버에서 가져오는 데이터에는 제품데이터 및 페이지등 다른 데이터도 있음.
   const { data, error, isLoading } = useData(
     "products",
-    { params: { category } },
-    [category]
+    { params: { category, page } },
+    [category, page]
   );
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  //쿼리스트링 search에 페이지를 업데이트함
+  const handlePageChange = (page) => {
+    const currentParams = Object.fromEntries([...search]);
+    setSearch({ ...currentParams, page: page });
+  };
 
   return (
     <section className="products_list_section">
@@ -45,6 +52,7 @@ const ProductsList = () => {
               stock={product.stock}
             />
           ))}
+        <button onClick={() => handlePageChange(2)}>2페이지</button>
       </div>
     </section>
   );
