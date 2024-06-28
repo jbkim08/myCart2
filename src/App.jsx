@@ -59,6 +59,22 @@ function App() {
       toast.error("장바구니 상품 삭제 에러");
     });
   };
+  //장바구니 상품 수량 증가 감소
+  const updateCart = (type, id) => {
+    const updatedCart = [...cart]; //장바구니 복사
+    const productIndex = updatedCart.findIndex(
+      (item) => item.product._id === id
+    );
+    //타입이 증가면 +1 , 감소면 -1 개수 업데이트
+    if (type === "increase") {
+      updatedCart[productIndex].quantity += 1;
+      setCart(updatedCart);
+    }
+    if (type === "decrease") {
+      updatedCart[productIndex].quantity -= 1;
+      setCart(updatedCart);
+    }
+  };
   useEffect(() => {
     getCart(); //처음 시작 및 유저가 바뀌면 가져옴
   }, [user]);
@@ -77,7 +93,9 @@ function App() {
   }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, updateCart }}
+    >
       <UserContext.Provider value={user}>
         <div className="app">
           <Navbar user={user} cartCount={cart.length} />
