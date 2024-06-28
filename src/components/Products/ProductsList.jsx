@@ -42,16 +42,7 @@ const ProductsList = () => {
         {isLoading && skeletons.map((n) => <ProductCardSkeleton key={n} />)}
         {data.products &&
           data.products.map((product) => (
-            <ProductCard
-              key={product._id}
-              id={product._id}
-              title={product.title}
-              image={product.images[0]}
-              price={product.price}
-              rating={product.rating}
-              ratingCounts={product.reviews.counts}
-              stock={product.stock}
-            />
+            <ProductCard key={product._id} product={product} />
           ))}
       </div>
       {/* 페이지네이션 넣기 */}
