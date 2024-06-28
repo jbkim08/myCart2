@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Routing from "./components/Routing/Routing";
 import { jwtDecode } from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { addToCartAPI } from "./services/cartServices";
+import { addToCartAPI, getCartAPI } from "./services/cartServices";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -34,6 +34,19 @@ function App() {
       .then((res) => toast.success("상품 추가 성공!~"))
       .catch((err) => toast.error("상품 추가에 실패했습니다."));
   };
+  //카트 정보를 가져옴
+  const getCart = () => {
+    getCartAPI()
+      .then((res) => {
+        setCart(res.data);
+      })
+      .catch((err) => {
+        toast.error("카트 가져오기에 실패했습니다.");
+      });
+  };
+  useEffect(() => {
+    getCart(); //처음 시작 및 유저가 바뀌면 가져옴
+  }, [user]);
   //시작시 jwt 토큰을 가져옴
   useEffect(() => {
     try {
@@ -53,7 +66,7 @@ function App() {
       <Navbar user={user} cartCount={cart.length} />
       <main>
         <ToastContainer position="bottom-right" />
-        <Routing addToCart={addToCart} />
+        <Routing addToCart={addToCart} cart={cart} />
       </main>
     </div>
   );
