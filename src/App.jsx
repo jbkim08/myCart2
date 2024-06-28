@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Routing from "./components/Routing/Routing";
 import { jwtDecode } from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { addToCartAPI } from "./services/cartServices";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 //이미 인증된 토큰이 있으면 요청헤더에 추가하고 없으면 제거한다.
 setAuthToken(localStorage.getItem("token"));
@@ -28,8 +31,8 @@ function App() {
     setCart(updatedCart);
     //벡엔드 서버에도 장바구니 추가
     addToCartAPI(product._id, quantity)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.response));
+      .then((res) => toast.success("상품 추가 성공!~"))
+      .catch((err) => toast.error("상품 추가에 실패했습니다."));
   };
   //시작시 jwt 토큰을 가져옴
   useEffect(() => {
@@ -49,6 +52,7 @@ function App() {
     <div className="app">
       <Navbar user={user} cartCount={cart.length} />
       <main>
+        <ToastContainer position="bottom-right" />
         <Routing addToCart={addToCart} />
       </main>
     </div>
