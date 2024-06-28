@@ -5,7 +5,15 @@ import Table from "../Common/Table";
 import QuantityInput from "../SingleProduct/QuantityInput";
 
 const CartPage = ({ cart }) => {
+  onst[(subTotal, setSubTotal)] = useState(0);
   console.log(cart);
+  useEffect(() => {
+    let total = 0;
+    cart.forEach((item) => {
+      total += item.product.price * item.quantity;
+    });
+    setSubTotal(total); //제품 합계가격을 계산해서 카트가 바뀔때마다 저장
+  }, [cart]);
   return (
     <section className="align_center cart_page">
       <div className="align_center user_info">
