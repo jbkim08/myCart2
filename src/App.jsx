@@ -46,6 +46,12 @@ function App() {
         toast.error("카트 가져오기에 실패했습니다.");
       });
   };
+  //장바구니에서 상품 삭제 함수
+  const removeFromCart = (id) => {
+    const oldCart = [...cart];
+    const newCart = oldCart.filter((item) => item.product._id !== id);
+    setCart(newCart);
+  };
   useEffect(() => {
     getCart(); //처음 시작 및 유저가 바뀌면 가져옴
   }, [user]);
@@ -64,7 +70,7 @@ function App() {
   }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
       <UserContext.Provider value={user}>
         <div className="app">
           <Navbar user={user} cartCount={cart.length} />
