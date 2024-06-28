@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import UserContext from "./contexts/UserContext";
 
 //이미 인증된 토큰이 있으면 요청헤더에 추가하고 없으면 제거한다.
 setAuthToken(localStorage.getItem("token"));
@@ -62,13 +63,15 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <Navbar user={user} cartCount={cart.length} />
-      <main>
-        <ToastContainer position="bottom-right" />
-        <Routing addToCart={addToCart} cart={cart} />
-      </main>
-    </div>
+    <UserContext.Provider value={user}>
+      <div className="app">
+        <Navbar user={user} cartCount={cart.length} />
+        <main>
+          <ToastContainer position="bottom-right" />
+          <Routing addToCart={addToCart} cart={cart} />
+        </main>
+      </div>
+    </UserContext.Provider>
   );
 }
 
