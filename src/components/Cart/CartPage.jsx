@@ -18,21 +18,23 @@ const CartPage = ({ cart }) => {
       {/* 테이블 컴포넌트는 테이블의 제목부분을 배열로 입력하면 생성됨! */}
       <Table headings={["상품", "가격", "구매수량", "총 금액", "상품삭제"]}>
         <tbody>
-          <tr>
-            <td>iPhone 14</td>
-            <td>1200,000 원</td>
-            <td className="align_center table_quantity_input">
-              <QuantityInput />
-            </td>
-            <td>1200,000 원</td>
-            <td>
-              <img
-                src={remove}
-                alt="remove icon"
-                className="cart_remove_icon"
-              />
-            </td>
-          </tr>
+          {cart.map(({ product, quantity }) => (
+            <tr key={product._id}>
+              <td>{product.title}</td>
+              <td>{product.price.toLocaleString("ko-KR")} 원</td>
+              <td className="align_center table_quantity_input">
+                <QuantityInput quantity={quantity} stock={product.stock} />
+              </td>
+              <td>{(quantity * product.price).toLocaleString("ko-KR")} 원</td>
+              <td>
+                <img
+                  src={remove}
+                  alt="remove icon"
+                  className="cart_remove_icon"
+                />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
       {/* 단순 계산 테이블 추가 */}
