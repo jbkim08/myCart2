@@ -3,6 +3,10 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Routing from "./components/Routing/Routing";
 import { jwtDecode } from "jwt-decode";
+import setAuthToken from "./utils/setAuthToken";
+
+//이미 인증된 토큰이 있으면 요청헤더에 추가하고 없으면 제거한다.
+setAuthToken(localStorage.getItem("token"));
 
 function App() {
   const [user, setUser] = useState(null);
