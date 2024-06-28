@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Routing from "./components/Routing/Routing";
 import { jwtDecode } from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
+import { addToCartAPI } from "./services/cartServices";
 
 //이미 인증된 토큰이 있으면 요청헤더에 추가하고 없으면 제거한다.
 setAuthToken(localStorage.getItem("token"));
@@ -25,6 +26,10 @@ function App() {
       updatedCart[productIndex].quantity += quantity;
     }
     setCart(updatedCart);
+    //벡엔드 서버에도 장바구니 추가
+    addToCartAPI(product._id, quantity)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.response));
   };
   //시작시 jwt 토큰을 가져옴
   useEffect(() => {
