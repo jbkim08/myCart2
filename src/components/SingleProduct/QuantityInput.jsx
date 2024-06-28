@@ -27,7 +27,7 @@ const QuantityInput = ({
         onClick={() =>
           cartPage
             ? setQuantity("increase", productId)
-            : setQuantity((prev) => prev - 1)
+            : setQuantity((prev) => prev + 1)
         }
         className="quantity_input_button"
         disabled={quantity >= stock}
