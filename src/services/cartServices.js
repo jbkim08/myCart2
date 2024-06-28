@@ -14,3 +14,13 @@ export async function getCartAPI() {
 export function removeFromCartAPI(id) {
   return apiClient.patch(`/cart/remove/${id}`);
 }
+
+//장바구니의 상품 수량 + 1
+export function increaseProductAPI(id) {
+  return apiClient.patch(`/cart/increase/${id}`);
+}
+
+//장바구니의 상품 수량 - 1
+export function decreaseProductAPI(id) {
+  return apiClient.patch(`/cart/decrease/${id}`);
+}
