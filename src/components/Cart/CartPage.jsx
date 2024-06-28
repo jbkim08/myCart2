@@ -1,15 +1,16 @@
 import "./CartPage.css";
 import remove from "../../assets/remove.png";
-import user from "../../assets/user.webp";
 import Table from "../Common/Table";
 import QuantityInput from "../SingleProduct/QuantityInput";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
+import CartContext from "../../contexts/CartContext";
 
-const CartPage = ({ cart }) => {
+const CartPage = () => {
   const [subTotal, setSubTotal] = useState(0);
   const user = useContext(UserContext);
-  console.log(user);
+  const { cart, addToCart } = useContext(CartContext);
+  //console.log(user);
   useEffect(() => {
     let total = 0;
     cart.forEach((item) => {
