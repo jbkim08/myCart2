@@ -7,6 +7,21 @@ import { jwtDecode } from "jwt-decode";
 function App() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
+  console.log(cart);
+  //제품과, 개수를 입력하여 장바구니 업데이트
+  const addToCart = (product, quantity) => {
+    //같은 제품이 추가되면 수량만 추가하자!
+    const updatedCart = [...cart]; //장바구니 복사
+    const productIndex = updatedCart.findIndex(
+      (item) => item.product._id === product._id
+    ); // 찾으면 그 제품의 인덱스 번호가 리턴됨 아니면 -1
+    if (productIndex === -1) {
+      updatedCart.push({ product: product, quantity: quantity });
+    } else {
+      updatedCart[productIndex].quantity += quantity;
+    }
+    setCart(updatedCart);
+  };
   //시작시 jwt 토큰을 가져옴
   useEffect(() => {
     try {
@@ -25,7 +40,7 @@ function App() {
     <div className="app">
       <Navbar user={user} cartCount={cart.length} />
       <main>
-        <Routing />
+        <Routing addToCart={addToCart} />
       </main>
     </div>
   );
