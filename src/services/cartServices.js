@@ -9,3 +9,8 @@ export function addToCartAPI(id, quantity) {
 export async function getCartAPI() {
   return await apiClient.get("/cart");
 }
+
+//상품(id)을 삭제
+export function removeFromCartAPI(id) {
+  return apiClient.patch(`/cart/remove/${id}`);
+}
