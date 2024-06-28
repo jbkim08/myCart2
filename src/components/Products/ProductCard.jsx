@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
       <div className="product_image">
         <Link to={`/product/${product?.id}`}>
           <img
-            src={`http://localhost:5000/products/${product?.image[0]}`}
+            src={`http://localhost:5000/products/${product?.images[0]}`}
             alt="product image"
           />
         </Link>
@@ -20,14 +20,14 @@ const ProductCard = ({ product }) => {
 
       <div className="product_details">
         <h3 className="product_price">
-          {product?.price.toLocaleString("ko-KR")} 원
+          {product?.price?.toLocaleString("ko-KR")} 원
         </h3>
         <p className="product_title">{product?.title}</p>
 
         <footer className="align_center product_info_footer">
           <div className="align_center">
             <p className="align_center product_rating">
-              <img src={star} alt="star" /> {product?.revies.rate}
+              <img src={star} alt="star" /> {product?.reviews.rate}
             </p>
             <p className="product_review_count">{product?.reviews.counts}</p>
           </div>
