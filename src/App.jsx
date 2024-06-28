@@ -23,7 +23,7 @@ setAuthToken(localStorage.getItem("token"));
 function App() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
-  console.log(cart);
+  //console.log(cart);
   //제품과, 개수를 입력하여 장바구니 업데이트
   const addToCart = (product, quantity) => {
     //같은 제품이 추가되면 수량만 추가하자!
