@@ -84,7 +84,7 @@ function App() {
     }
   };
   useEffect(() => {
-    getCart(); //처음 시작 및 유저가 바뀌면 가져옴
+    if (user) getCart(); //처음 시작 및 유저가 바뀌면 가져옴
   }, [user]);
   //시작시 jwt 토큰을 가져옴
   useEffect(() => {
