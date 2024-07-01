@@ -7,15 +7,26 @@ import lock from "../../assets/locked.png";
 
 import "./Navbar.css";
 import LinkWithIcon from "./LinkWithIcon";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = ({ user, cartCount }) => {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate(); //window.location="이동주소" 대신 더 빠름
+  const handleSubmit = (e) => {
+    e.preventDefault(); //submit 이벤트 중지
+    if (search.trim() !== "") {
+      navigate(`/products?search=${search.trim()}`); //제품리스트 페이지에서 검색어로 검색
+    }
+  };
   return (
     <nav className="align_center navbar">
       <div className="align_center">
         <h1 className="navbar_heading">myCart</h1>
-        <form className="align_center navbar_form">
+        <form onSubmit={handleSubmit} className="align_center navbar_form">
           <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             type="text"
             className="navbar_search"
             placeholder="제품 찾기..."
